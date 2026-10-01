@@ -32,7 +32,6 @@ import math
 import random
 import sys
 import time
-import uuid
 from dataclasses import dataclass, field, asdict
 from typing import Iterator
 
@@ -160,7 +159,9 @@ class MatchSim:
         names = self.rng.sample(CLUB_NAMES, 2)
         self.home = build_team("HOM", names[0], self.rng)
         self.away = build_team("AWY", names[1], self.rng)
-        self.match_id = str(uuid.uuid4())[:8]
+        # derived from the seeded rng, not uuid4, so the same seed always
+        # yields the same match_id (uuid4 ignores the seed and broke replay)
+        self.match_id = f"{self.rng.getrandbits(32):08x}"
         self.score = {"HOM": 0, "AWY": 0}
         self.seq = 0
         self.clock = 0.0
