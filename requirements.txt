@@ -1,0 +1,6 @@
+# Core generator and analysis use only the Python standard library.
+# Pin extras here as the pipeline grows:
+# azure-ai-projects
+# azure-identity
+# fastapi
+# uvicorn
